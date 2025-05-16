@@ -1,3 +1,4 @@
+// Typed.js initialization
 const typed = new Typed(".multiple-text", {
   strings: ["Frontend Developer", "Coder", "Photographer"],
   typeSpeed: 100,
@@ -5,28 +6,28 @@ const typed = new Typed(".multiple-text", {
   loop: true
 });
 
+// Resume buttons toggle
 const resumeBtns = document.querySelectorAll('.resume-btn');
 const resumeDetails = document.querySelectorAll('.resume-detail');
 
-// Initially, remove all active classes so nothing shows on page load
 resumeBtns.forEach(b => b.classList.remove('active'));
 resumeDetails.forEach(detail => detail.classList.remove('active'));
 
+// Show first tab by default
+resumeBtns[0].classList.add('active');
+resumeDetails[0].classList.add('active');
+
 resumeBtns.forEach((btn, idx) => {
   btn.addEventListener('click', () => {
-    // Remove 'active' class from all buttons
     resumeBtns.forEach(b => b.classList.remove('active'));
-    // Add 'active' class to the clicked button
     btn.classList.add('active');
 
-    // Hide all resume details
     resumeDetails.forEach(detail => detail.classList.remove('active'));
-    // Show the resume detail corresponding to clicked button's index
     resumeDetails[idx].classList.add('active');
   });
 });
 
-// Select all sections and nav links
+// Scrollspy for navbar links
 const sections = document.querySelectorAll('section');
 const navLinks = document.querySelectorAll('.navbar a');
 
@@ -34,9 +35,9 @@ window.addEventListener('scroll', () => {
   let current = '';
 
   sections.forEach(section => {
-    const sectionTop = section.offsetTop - 150;  // thoda offset upar se
+    const sectionTop = section.offsetTop - 150;
     const sectionHeight = section.clientHeight;
-    
+
     if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
       current = section.getAttribute('id');
     }
@@ -47,5 +48,22 @@ window.addEventListener('scroll', () => {
     if (link.getAttribute('href') === `#${current}`) {
       link.classList.add('active');
     }
+  });
+});
+
+// Mobile menu toggle
+const menuIcon = document.getElementById('menu-icon');
+const navbar = document.querySelector('.navbar');
+
+menuIcon.addEventListener('click', () => {
+  navbar.classList.toggle('active');
+  menuIcon.classList.toggle('bx-x'); // toggle icon from menu to close
+});
+
+// Close mobile menu on nav link click
+document.querySelectorAll('.navbar a').forEach(link => {
+  link.addEventListener('click', () => {
+    navbar.classList.remove('active');
+    menuIcon.classList.remove('bx-x');
   });
 });
