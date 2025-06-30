@@ -18,6 +18,41 @@
   --main-color: #16ff00;
 }
 
+/* Fluid typography */
+html {
+  font-size: clamp(14px, 1.5vw, 62.5%);
+}
+
+/* Fluid spacing */
+section {
+  padding: clamp(4rem, 8vw, 10rem) clamp(2rem, 5vw, 9%);
+}
+
+/* Fluid containers */
+.container {
+  width: min(1200px, 90%);
+  margin: 0 auto;
+}
+
+/* Flexible images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Aspect ratio boxes */
+.aspect-box {
+  position: relative;
+  padding-top: 56.25%; /* 16:9 */
+}
+
+.aspect-box > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 html {
   font-size: 62.5%;
   overflow-x: hidden;
@@ -985,8 +1020,39 @@ header {
 }
 
 /* Contact Section */
+.nav-btn.active {
+  background: var(--main-color) !important;
+  color: var(--bg-color) !important;
+  box-shadow: 
+    0 0 15px var(--main-color),
+    0 0 30px var(--main-color) inset !important;
+  transform: scale(1.05);
+  border: 2px solid var(--main-color);
+}
+
+/* Animation for active state */
+.nav-btn.active {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 15px var(--main-color), 0 0 30px var(--main-color) inset;
+  }
+  50% {
+    box-shadow: 0 0 20px var(--main-color), 0 0 40px var(--main-color) inset;
+  }
+  100% {
+    box-shadow: 0 0 15px var(--main-color), 0 0 30px var(--main-color) inset;
+  }
+}
+
+/* Contact section styling */
 .contact {
-  padding: 4rem 2rem;
+  padding: 8rem 9% 4rem;
+  background: var(--second-bg-color);
+  min-height: 100vh;
+  scroll-margin-top: 8rem; /* Ensure proper scroll positioning */
 }
 
 .contact-container {
@@ -996,16 +1062,10 @@ header {
   align-items: start;
 }
 
-.contact-box h2 {
-  font-size: 4.5rem;
-  color: var(--main-color);
-}
-
-.contact-box .desc {
-  margin-top: 1.5rem;
-  font-size: 1.6rem;
-  color: var(--text-color);
-  line-height: 1.6;
+@media (max-width: 768px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Contact Details Icons + Text */
@@ -1109,3 +1169,154 @@ textarea {
     display: none; /* Hide contact button on small screens */
   }
 }
+
+/* ===== Base Responsive Styles ===== */
+@media (max-width: 1600px) {
+  html {
+    font-size: 58%;
+  }
+}
+
+@media (max-width: 1200px) {
+  html {
+    font-size: 55%;
+  }
+  
+  header {
+    padding: 2rem 5%;
+  }
+  
+  section {
+    padding: 8rem 5% 4rem;
+  }
+}
+
+@media (max-width: 991px) {
+  html {
+    font-size: 50%;
+  }
+  
+  .home {
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 3rem;
+  }
+  
+  .home-content {
+    order: 2;
+    max-width: 100%;
+  }
+  
+  .home-img img {
+    width: 60vw;
+  }
+  
+  .resume-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  #menu-icon {
+    display: block;
+  }
+  
+  .navbar {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    height: 100vh;
+    background: var(--bg-color);
+    flex-direction: column;
+    padding: 10rem 3rem;
+    gap: 3rem;
+    transition: right 0.5s ease;
+  }
+  
+  .navbar.active {
+    right: 0;
+  }
+  
+  .portfolio-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .home-img img {
+    width: 70vw;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 45%;
+  }
+  
+  header {
+    padding: 2rem 3%;
+  }
+  
+  .home-img img {
+    width: 90vw;
+  }
+  
+  .contact-box, 
+  .contact-right {
+    padding: 2rem;
+  }
+  
+  .btn {
+    padding: 1rem 2rem;
+  }
+}
+
+/* ===== Component-Specific Responsive Styles ===== */
+
+/* Home Section */
+@media (max-width: 991px) {
+  .home-content h1 {
+    font-size: 4.8rem;
+  }
+  
+  .home-content h3 {
+    font-size: 2.8rem;
+  }
+}
+
+/* Resume Section */
+@media (max-width: 768px) {
+  .resume-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .resume-item {
+    padding: 1.5rem;
+  }
+}
+
+/* Portfolio Section */
+@media (max-width: 991px) {
+  .portfolio-box h3 {
+    font-size: 3rem;
+  }
+  
+  .portfolio-box .numb {
+    font-size: 6rem;
+  }
+}
+
+/* Contact Section */
+@media (max-width: 768px) {
+  .contact-box h2 {
+    font-size: 3.5rem;
+  }
+  
+  .contact-detail {
+    font-size: 1.4rem;
+  }
+}
+
