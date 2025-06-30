@@ -51,16 +51,39 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// Mobile menu toggle
+/// Mobile menu toggle
 const menuIcon = document.getElementById('menu-icon');
 const navbar = document.querySelector('.navbar');
 
 menuIcon.addEventListener('click', () => {
+  menuIcon.classList.toggle('bx-x');
   navbar.classList.toggle('active');
-  menuIcon.classList.toggle('bx-x'); // toggle icon from menu to close
+  
+  // Toggle body overflow when menu is open
+  document.body.style.overflow = navbar.classList.contains('active') ? 'hidden' : '';
 });
 
-// Close mobile menu on nav link click
+// Close menu when clicking outside on mobile
+document.addEventListener('click', (e) => {
+  if (window.innerWidth <= 768 && 
+      !e.target.closest('.navbar') && 
+      !e.target.closest('#menu-icon') &&
+      navbar.classList.contains('active')) {
+    menuIcon.classList.remove('bx-x');
+    navbar.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+
+// Recalculate positions on resize
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) {
+    navbar.classList.remove('active');
+    menuIcon.classList.remove('bx-x');
+    document.body.style.overflow = '';
+  }
+});
+
 document.querySelectorAll('.navbar a').forEach(link => {
   link.addEventListener('click', () => {
     navbar.classList.remove('active');
